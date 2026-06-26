@@ -44,9 +44,32 @@ The initial state is pre-seeded to match the Figma design on first render.
 
 ---
 
-## Setup
+## Quick Start
 
-The app uses an **MVC server architecture**. The Express API is organized as:
+Requires **Node.js 18+**.
+
+```bash
+# 1. Install dependencies
+npm install
+
+# 2a. Development — two terminals:
+npm run server    # Terminal 1: Express API on http://localhost:3001
+npm run dev       # Terminal 2: Vite dev server on http://localhost:5173
+                   # (proxies /api/* requests to the Express server)
+
+# OR 2b. Production — single command:
+npm run build     # Builds the frontend into dist/
+npm run preview   # Express serves both API + built frontend on :3001
+                   # Open http://localhost:3001
+```
+
+> The frontend fetches data from the Express API. If the server is down, it falls back to the bundled JSON — so the app works standalone in dev without `npm run server`.
+
+---
+
+## Project Structure
+
+The app uses an **MVC server architecture**:
 
 ```
 server/
@@ -70,44 +93,6 @@ server/
 | `GET /api/bundle-data/products/:id` | Single product by ID |
 | `GET /api/bundle-data/steps` | Steps only |
 | `GET /api/bundle-data/content` | Content/text only |
-
-### Setup
-
-```bash
-# Install dependencies
-npm install
-
-# Terminal 1 — start the API server
-npm run server
-
-# Terminal 2 — start the frontend dev server
-npm run dev
-```
-
-Open [http://localhost:5173](http://localhost:5173).
-
-### Production
-
-```bash
-npm run build
-npm run preview
-```
-
-The Express server serves both the API and the built frontend files.
-
----
-
-## Build
-
-```bash
-npm run build
-```
-
-Preview the production build:
-
-```bash
-npm run preview
-```
 
 ---
 
