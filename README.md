@@ -21,6 +21,7 @@ graph TB
     COMP --> HOOKS
     STORE --> HOOKS
     COMP -.->|fetch /api| CTLRS
+    COMP -.->|fallback| DATA
     CTLRS --> MODELS
     MODELS -->|reads| DATA
     ROUTES --> CTLRS
@@ -195,7 +196,7 @@ Savings:        compareTotal - currentTotal
 
 ## Data-Driven Design
 
-All data comes from the Express API at `GET /api/bundle-data`. The frontend fetches this on startup and the server reads directly from `src/data/bundle-data.json`. No static import fallback — if the API is down, the app shows an error message.
+Data is loaded from the Express API at `GET /api/bundle-data`. If the API is unavailable, the frontend falls back to the bundled `bundle-data.json` — so the app works standalone without the server running.
 
 1. Add an entry to the `"products"` array with the appropriate `category`
 2. Optionally add `variants` for products with color options
@@ -230,7 +231,7 @@ The product grid uses responsive column counts:
 
 5. **Checkout**: Triggers a browser `alert()` as specified. No backend integration.
 
-6. **Data source**: The frontend fetches all data from the Express API at startup. No static JSON is bundled — the API must be running for the app to work.
+6. **Data source**: The frontend fetches data from the Express API on startup, with a static JSON fallback. If the server is down, the app loads from the bundled JSON directly.
 
 ---
 
