@@ -1,7 +1,7 @@
 import express from 'express';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import apiRoutes from './routes/index.js';
+import apiRoutes from './routes/routes.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();

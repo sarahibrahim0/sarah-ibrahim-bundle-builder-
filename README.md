@@ -55,9 +55,9 @@ server/
 ├── controllers/
 │   └── productController.js # Product request handlers (list, getById)
 ├── routes/
-│   ├── index.js            # Main route definitions
+│   ├── routes.js            # Main route definitions
 │   └── products.js         # Product-specific routes
-└── index.js                # App entry point
+└── server.js                # App entry point
 ```
 
 ### API Endpoints
