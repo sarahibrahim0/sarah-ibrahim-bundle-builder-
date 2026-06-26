@@ -194,7 +194,7 @@ The product grid uses responsive column counts:
 
 1. **Image URLs**: Product images use Wyze's CDN URLs. If CDN URLs are unavailable, the `ProductCard` and `ReviewItem` components fall back to a graceful placeholder icon via the `onError` handler.
 
-2. **Plan in totals**: The `Cam Unlimited` plan is included in the one-time total calculation. While displayed with monthly pricing, its cost contributes to the active total (matching Figma behavior).
+2. **Plan in totals**: The `Cam Unlimited` plan is displayed in the review panel with monthly pricing, but excluded from the one-time total calculation. The total reflects only one-time purchase items.
 
 3. **Hub is always FREE**: The `Wyze Sense Hub (Required)` has `price: 0` and `isFree: true` in the data, matching the Figma design.
 

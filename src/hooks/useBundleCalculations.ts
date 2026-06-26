@@ -58,7 +58,8 @@ export function useBundleCalculations() {
     let compareTotal = 0;
 
     for (const line of reviewItems) {
-      // Include all items (including monthly plan) in the total, matching Figma
+      // Exclude the monthly plan from the one-time total
+      if (line.product.isMonthly) continue;
       activeTotal += line.linePrice;
       compareTotal += line.lineComparePrice ?? line.linePrice;
     }
