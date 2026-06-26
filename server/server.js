@@ -7,9 +7,11 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use('/api', apiRoutes);
-
 const distPath = join(__dirname, '..', 'dist');
+const imagePath = join(__dirname, 'public', 'images');
+
+app.use('/api/images', express.static(imagePath));
+app.use('/api', apiRoutes);
 app.use(express.static(distPath));
 app.get('/{*path}', (_req, res) => {
   res.sendFile(join(distPath, 'index.html'));
