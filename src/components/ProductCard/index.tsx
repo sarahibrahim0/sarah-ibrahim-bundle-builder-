@@ -107,6 +107,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
                   href={product.learnMoreUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
                   className="text-[#4E2FD2] underline hover:text-[#4E2FD2]/80 font-medium inline-block"
                 >
                   {content.productCard.learnMore}
