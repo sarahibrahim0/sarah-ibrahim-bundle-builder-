@@ -3,19 +3,20 @@ import { formatCurrency } from '../../utils/currency';
 import { useBundleStore } from '../../store/bundleStore';
 import { useBundleCalculations } from '../../hooks/useBundleCalculations';
 import type { BundleContent } from '../../types';
-import bundleData from '../../data/bundle-data.json';
+import { getBundleData } from '../../data/bundleData';
 
 interface SummaryFooterProps {
   hideSeal?: boolean;
 }
 
-const monthlyPlanProduct = bundleData.products.find((p: any) => p.isMonthly === true);
+const _bundleData = getBundleData();
+const monthlyPlanProduct = _bundleData.products.find((p: any) => p.isMonthly === true);
 const monthlyBadgeText = monthlyPlanProduct
-  ? (bundleData as any).content.summaryFooter.monthlyBadge.replace('{price}', formatCurrency(monthlyPlanProduct.price))
+  ? _bundleData.content.summaryFooter.monthlyBadge.replace('{price}', formatCurrency(monthlyPlanProduct.price))
   : '';
 
 const SummaryFooter: React.FC<SummaryFooterProps> = ({ hideSeal = false }) => {
-  const content = (bundleData as any).content as BundleContent;
+  const content = getBundleData().content as BundleContent;
   const saveSystem = useBundleStore((s) => s.saveSystem);
   const { totals } = useBundleCalculations();
   const { activeTotal, compareTotal, savings } = totals;

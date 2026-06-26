@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { clsx } from 'clsx';
 import type { BundleContent, Product } from '../../types';
-import bundleData from '../../data/bundle-data.json';
+import { getBundleData } from '../../data/bundleData';
 import { useBundleStore, DEFAULT_VARIANT, selectProductTotalQty } from '../../store/bundleStore';
 import QuantityStepper from '../QuantityStepper';
 import VariantSelector from '../VariantSelector';
@@ -41,7 +41,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         : formatCurrency(product.comparePrice)
       : null;
 
-  const content = (bundleData as any).content as BundleContent;
+  const content = getBundleData().content as BundleContent;
 
   return (
     <div

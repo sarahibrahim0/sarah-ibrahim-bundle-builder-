@@ -1,14 +1,14 @@
 import { useMemo } from 'react';
 import { useBundleStore, DEFAULT_VARIANT, selectProductTotalQty } from '../store/bundleStore';
 import type { Product, ReviewLineItem } from '../types';
-import bundleData from '../data/bundle-data.json';
+import { getBundleData } from '../data/bundleData';
 
 const SHIPPING_COMPARE = 5.99;
 
 export function useBundleCalculations() {
   const items = useBundleStore((s) => s.items);
 
-  const products = bundleData.products as Product[];
+  const products = getBundleData().products as Product[];
 
   const reviewItems = useMemo<ReviewLineItem[]>(() => {
     const lines: ReviewLineItem[] = [];

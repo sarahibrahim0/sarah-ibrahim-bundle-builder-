@@ -5,13 +5,14 @@ import SummaryFooter from '../SummaryFooter';
 import { useBundleCalculations } from '../../hooks/useBundleCalculations';
 import { useBundleStore } from '../../store/bundleStore';
 import { formatCurrency } from '../../utils/currency';
-import bundleData from '../../data/bundle-data.json';
+import { getBundleData } from '../../data/bundleData';
 
-const content = (bundleData as any).content as BundleContent;
+const _bundleData = getBundleData();
+const content = _bundleData.content as BundleContent;
 const CATEGORY_LABELS: Record<ProductCategory, string> = content.reviewPanel.categories;
 const CATEGORY_ORDER: ProductCategory[] = content.reviewPanel.categoryOrder as ProductCategory[];
 const SHIPPING_COMPARE_DISPLAY = content.reviewPanel.shipping.comparePrice;
-const monthlyPlanProduct = bundleData.products.find((p: any) => p.isMonthly === true);
+const monthlyPlanProduct = _bundleData.products.find((p: any) => p.isMonthly === true);
 const monthlyBadgeText = monthlyPlanProduct
   ? content.reviewPanel.rightColumn.monthlyBadge.replace('{price}', formatCurrency(monthlyPlanProduct.price))
   : content.reviewPanel.rightColumn.monthlyBadge.replace('{price}', '');

@@ -2,11 +2,12 @@ import type { ProductCategory, BundleContent } from '../types';
 import type { Step, Product } from '../types';
 import AccordionStep from '../components/AccordionStep';
 import ReviewPanel from '../components/ReviewPanel';
-import bundleData from '../data/bundle-data.json';
+import { getBundleData } from '../data/bundleData';
 
-const steps = bundleData.steps as Step[];
-const allProducts = bundleData.products as Product[];
-const content = bundleData.content as BundleContent;
+const _bundleData = getBundleData();
+const steps = _bundleData.steps as Step[];
+const allProducts = _bundleData.products as Product[];
+const content = _bundleData.content as BundleContent;
 
 function getProductsByCategory(category: ProductCategory): Product[] {
   return allProducts.filter((p) => p.category === category);

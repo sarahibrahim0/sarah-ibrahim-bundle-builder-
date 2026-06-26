@@ -29,16 +29,12 @@ graph TB
 
     subgraph Data
         JSON["bundle-data.json<br/>products, steps, content"]
+        API["/api/bundle-data<br/>(Express server)"]
     end
 
-    BBP --> ACC & RP
-    ACC --> SH & PC
-    PC --> QS & VS
-    RP --> RI & SF
-    ACC & PC & QS & RI --> STORE
-    STORE --> CALC
-    CALC --> RP
+    API -.->|fetch on init| JSON
     BBP & ACC & RP & PC & SF --> JSON
+    BBP & ACC & RP & PC & SF -.-> API
 ```
 
 ---
@@ -60,11 +56,19 @@ The initial state is pre-seeded to match the Figma design on first render.
 # Install dependencies
 npm install
 
-# Start the development server
+# Start the development server (frontend only, uses static JSON)
+npm run dev
+
+# Or run with the backend API (serves data from Express)
+# Terminal 1:
+npm run server
+# Terminal 2:
 npm run dev
 ```
 
 Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+The app falls back to the bundled JSON file if the API is not available.
 
 ---
 
@@ -167,7 +171,7 @@ Savings:        compareTotal - currentTotal
 
 ## Data-Driven Design
 
-All products, steps, and categories are loaded from `src/data/bundle-data.json`. To add a new product:
+All products, steps, and categories are loaded from `src/data/bundle-data.json`. When the Express API server (`npm run server`) is running, the frontend fetches the data from `GET /api/bundle-data`; otherwise it falls back to the static import.
 
 1. Add an entry to the `"products"` array with the appropriate `category`
 2. Optionally add `variants` for products with color options

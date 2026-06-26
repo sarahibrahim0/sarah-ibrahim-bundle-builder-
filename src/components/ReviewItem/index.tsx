@@ -5,7 +5,7 @@ import QuantityStepper from '../QuantityStepper';
 import { useBundleStore } from '../../store/bundleStore';
 import { formatCurrency, formatMonthly } from '../../utils/currency';
 import type { BundleContent } from '../../types';
-import bundleData from '../../data/bundle-data.json';
+import { getBundleData } from '../../data/bundleData';
 
 interface ReviewItemProps {
   item: ReviewLineItem;
@@ -17,7 +17,7 @@ const ReviewItem = ({ item }: ReviewItemProps) => {
   const increase = useBundleStore((s) => s.increaseQuantity);
   const decrease = useBundleStore((s) => s.decreaseQuantity);
 
-  const content = (bundleData as any).content as BundleContent;
+  const content = getBundleData().content as BundleContent;
   const isMonthly = product.isMonthly === true;
   const isFree = product.isFree === true;
   const isHubRequired = product.required === true;

@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Product, StepIcon, BundleContent } from '../../types';
-import bundleData from '../../data/bundle-data.json';
+import { getBundleData } from '../../data/bundleData';
 import { useBundleStore, selectCategorySelectedCount } from '../../store/bundleStore';
 import ProductCard from '../ProductCard';
 
@@ -68,7 +68,7 @@ const AccordionStep = ({
   const isOpen = openStep === stepNumber;
   const productIds = products.map((p) => p.id);
   const selectedCount = selectCategorySelectedCount(items, productIds);
-  const content = (bundleData as any).content as BundleContent;
+  const content = getBundleData().content as BundleContent;
   const panelId = `accordion-panel-${stepNumber}`;
   const buttonId = `accordion-button-${stepNumber}`;
 
