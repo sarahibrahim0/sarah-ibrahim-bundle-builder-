@@ -7,16 +7,6 @@ import { useBundleStore } from '../../store/bundleStore';
 import { formatCurrency } from '../../utils/currency';
 import { getBundleData } from '../../data/bundleData';
 
-const _bundleData = getBundleData();
-const content = _bundleData.content as BundleContent;
-const CATEGORY_LABELS: Record<ProductCategory, string> = content.reviewPanel.categories;
-const CATEGORY_ORDER: ProductCategory[] = content.reviewPanel.categoryOrder as ProductCategory[];
-const SHIPPING_COMPARE_DISPLAY = content.reviewPanel.shipping.comparePrice;
-const monthlyPlanProduct = _bundleData.products.find((p: any) => p.isMonthly === true);
-const monthlyBadgeText = monthlyPlanProduct
-  ? content.reviewPanel.rightColumn.monthlyBadge.replace('{price}', formatCurrency(monthlyPlanProduct.price))
-  : content.reviewPanel.rightColumn.monthlyBadge.replace('{price}', '');
-
 const DeliveryIcon = () => (
   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
     <rect x="1" y="3" width="15" height="13" rx="1" stroke="currentColor" strokeWidth="1.8" />
@@ -38,6 +28,15 @@ function groupByCategory(items: ReviewLineItem[]): Map<ProductCategory, ReviewLi
 }
 
 const ReviewPanel = () => {
+  const _bundleData = getBundleData();
+  const content = _bundleData.content as BundleContent;
+  const CATEGORY_LABELS: Record<ProductCategory, string> = content.reviewPanel.categories;
+  const CATEGORY_ORDER: ProductCategory[] = content.reviewPanel.categoryOrder as ProductCategory[];
+  const SHIPPING_COMPARE_DISPLAY = content.reviewPanel.shipping.comparePrice;
+  const monthlyPlanProduct = _bundleData.products.find((p: any) => p.isMonthly === true);
+  const monthlyBadgeText = monthlyPlanProduct
+    ? content.reviewPanel.rightColumn.monthlyBadge.replace('{price}', formatCurrency(monthlyPlanProduct.price))
+    : content.reviewPanel.rightColumn.monthlyBadge.replace('{price}', '');
   const { reviewItems, hasItems, totals } = useBundleCalculations();
   const saveSystem = useBundleStore((s) => s.saveSystem);
   const { activeTotal, compareTotal, savings } = totals;
