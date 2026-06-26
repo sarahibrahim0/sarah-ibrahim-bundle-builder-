@@ -195,7 +195,7 @@ Savings:        compareTotal - currentTotal
 
 ## Data-Driven Design
 
-All products, steps, and categories are loaded from `src/data/bundle-data.json`. On startup, the frontend attempts to fetch from `GET /api/bundle-data` (served by the Express API). If the API is unavailable, it falls back to the bundled JSON file.
+All data comes from the Express API at `GET /api/bundle-data`. The frontend fetches this on startup and the server reads directly from `src/data/bundle-data.json`. No static import fallback — if the API is down, the app shows an error message.
 
 1. Add an entry to the `"products"` array with the appropriate `category`
 2. Optionally add `variants` for products with color options
@@ -230,7 +230,7 @@ The product grid uses responsive column counts:
 
 5. **Checkout**: Triggers a browser `alert()` as specified. No backend integration.
 
-6. **Accordion behavior**: Only one step is open at a time. Clicking an already-open step header closes it (toggles to 0). This matches the chevron direction shown in the Figma.
+6. **Data source**: The frontend fetches all data from the Express API at startup. No static JSON is bundled — the API must be running for the app to work.
 
 ---
 

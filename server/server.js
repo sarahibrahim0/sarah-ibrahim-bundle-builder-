@@ -24,4 +24,5 @@ app.listen(PORT, () => {
   console.log('  GET /api/bundle-data/products');
   console.log('  GET /api/bundle-data/steps');
   console.log('  GET /api/bundle-data/content');
+  console.log('  GET /api/images/:filename');
 });
