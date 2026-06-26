@@ -4,37 +4,30 @@ A production-quality React + TypeScript bundle builder that lets users configure
 
 ```mermaid
 graph TB
-    subgraph Pages
-        BBP["BundleBuilderPage"]
+    subgraph Frontend["React App (src/)"]
+        COMP["Components (views)"]
+        STORE["store/bundleStore<br/>(Zustand state)"]
+        HOOKS["hooks/useBundleCalculations<br/>(derived totals)"]
+        DATA["data/bundle-data.json<br/>(fallback)"]
     end
 
-    subgraph Components
-        ACC["AccordionStep<br/>(4-step wizard)"]
-        PC["ProductCard<br/>(image, badge, stepper)"]
-        QS["QuantityStepper<br/>(+/- buttons)"]
-        VS["VariantSelector<br/>(color pills)"]
-        RP["ReviewPanel<br/>(live summary)"]
-        RI["ReviewItem<br/>(line item row)"]
-        SF["SummaryFooter<br/>(totals, checkout)"]
-        SH["StepHeader<br/>(step indicator)"]
+    subgraph Server["Express API (server/)"]
+        ROUTES["routes/index.js<br/>GET /api/bundle-data"]
+        CTLRS["controllers/bundleController.js<br/>request handling"]
+        MODELS["models/bundleData.js<br/>JSON loader"]
     end
 
-    subgraph State["Zustand Store"]
-        STORE["BundleState<br/>items, selectedVariants, openStep"]
-    end
+    COMP --> STORE
+    COMP --> HOOKS
+    STORE --> HOOKS
+    COMP -.->|fetch /api| CTLRS
+    CTLRS --> MODELS
+    MODELS -->|reads| DATA
+    ROUTES --> CTLRS
+    SERVER_ENTRY["server/index.js"] --> ROUTES
 
-    subgraph Hooks
-        CALC["useBundleCalculations<br/>(derived totals)"]
-    end
-
-    subgraph Data
-        JSON["bundle-data.json<br/>products, steps, content"]
-        API["/api/bundle-data<br/>(Express server)"]
-    end
-
-    API -.->|fetch on init| JSON
-    BBP & ACC & RP & PC & SF --> JSON
-    BBP & ACC & RP & PC & SF -.-> API
+    linkStyle 3 stroke-dash:4px;
+```
 ```
 
 ---
@@ -52,23 +45,51 @@ The initial state is pre-seeded to match the Figma design on first render.
 
 ## Setup
 
+The app uses an **MVC server architecture**. The Express API is organized as:
+
+```
+server/
+├── models/
+│   └── bundleData.js       # Data loading & validation
+├── controllers/
+│   └── bundleController.js # Request handlers
+├── routes/
+│   └── index.js            # Route definitions
+└── index.js                # App entry point
+```
+
+### API Endpoints
+
+| Endpoint | Description |
+|----------|-------------|
+| `GET /api/bundle-data` | Full bundle data (products, steps, content) |
+| `GET /api/bundle-data/products` | Products only |
+| `GET /api/bundle-data/steps` | Steps only |
+| `GET /api/bundle-data/content` | Content/text only |
+
+### Setup
+
 ```bash
 # Install dependencies
 npm install
 
-# Start the development server (frontend only, uses static JSON)
-npm run dev
-
-# Or run with the backend API (serves data from Express)
-# Terminal 1:
+# Terminal 1 — start the API server
 npm run server
-# Terminal 2:
+
+# Terminal 2 — start the frontend dev server
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) in your browser.
+Open [http://localhost:5173](http://localhost:5173).
 
-The app falls back to the bundled JSON file if the API is not available.
+### Production
+
+```bash
+npm run build
+npm run preview
+```
+
+The Express server serves both the API and the built frontend files.
 
 ---
 
@@ -171,7 +192,7 @@ Savings:        compareTotal - currentTotal
 
 ## Data-Driven Design
 
-All products, steps, and categories are loaded from `src/data/bundle-data.json`. When the Express API server (`npm run server`) is running, the frontend fetches the data from `GET /api/bundle-data`; otherwise it falls back to the static import.
+All products, steps, and categories are loaded from `src/data/bundle-data.json`. On startup, the frontend attempts to fetch from `GET /api/bundle-data` (served by the Express API). If the API is unavailable, it falls back to the bundled JSON file.
 
 1. Add an entry to the `"products"` array with the appropriate `category`
 2. Optionally add `variants` for products with color options
