@@ -2,6 +2,45 @@
 
 A production-quality React + TypeScript bundle builder that lets users configure a custom Wyze home security system — choosing cameras, a monitoring plan, sensors, and accessories — with a live review panel that updates in real time.
 
+```mermaid
+graph TB
+    subgraph Pages
+        BBP["BundleBuilderPage"]
+    end
+
+    subgraph Components
+        ACC["AccordionStep<br/>(4-step wizard)"]
+        PC["ProductCard<br/>(image, badge, stepper)"]
+        QS["QuantityStepper<br/>(+/- buttons)"]
+        VS["VariantSelector<br/>(color pills)"]
+        RP["ReviewPanel<br/>(live summary)"]
+        RI["ReviewItem<br/>(line item row)"]
+        SF["SummaryFooter<br/>(totals, checkout)"]
+        SH["StepHeader<br/>(step indicator)"]
+    end
+
+    subgraph State["Zustand Store"]
+        STORE["BundleState<br/>items, selectedVariants, openStep"]
+    end
+
+    subgraph Hooks
+        CALC["useBundleCalculations<br/>(derived totals)"]
+    end
+
+    subgraph Data
+        JSON["bundle-data.json<br/>products, steps, content"]
+    end
+
+    BBP --> ACC & RP
+    ACC --> SH & PC
+    PC --> QS & VS
+    RP --> RI & SF
+    ACC & PC & QS & RI --> STORE
+    STORE --> CALC
+    CALC --> RP
+    BBP & ACC & RP & PC & SF --> JSON
+```
+
 ---
 
 ## Overview
