@@ -50,11 +50,13 @@ The app uses an **MVC server architecture**. The Express API is organized as:
 ```
 server/
 ├── models/
-│   └── bundleData.js       # Data loading & validation
+│   ├── bundleData.js       # JSON loader (base)
+│   └── Product.js          # Product queries (getAll, getById, getByCategory)
 ├── controllers/
-│   └── bundleController.js # Request handlers
+│   └── productController.js # Product request handlers (list, getById)
 ├── routes/
-│   └── index.js            # Route definitions
+│   ├── index.js            # Main route definitions
+│   └── products.js         # Product-specific routes
 └── index.js                # App entry point
 ```
 
@@ -63,7 +65,8 @@ server/
 | Endpoint | Description |
 |----------|-------------|
 | `GET /api/bundle-data` | Full bundle data (products, steps, content) |
-| `GET /api/bundle-data/products` | Products only |
+| `GET /api/bundle-data/products` | All products (`?category=cameras` to filter) |
+| `GET /api/bundle-data/products/:id` | Single product by ID |
 | `GET /api/bundle-data/steps` | Steps only |
 | `GET /api/bundle-data/content` | Content/text only |
 
