@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+
+  --color-indigo-50: #f4f1fe;
+  --color-indigo-100: #eae6fd;
+  --color-indigo-400: #7a62e2;
+  --color-indigo-500: #6449da;
+  --color-indigo-600: #4e2fd2;
+  --color-indigo-700: #3e23b2;
+  --color-indigo-800: #2f1b8b;
+  --color-indigo-900: #211364;
+
+  --color-surface-brand: #edf4ff;
+  --color-surface-raised: #f0f4f7;
+  --color-surface-selected: rgba(29, 240, 187, 0.04);
+  --color-text-primary: #1f1f1f;
+  --color-text-heading: #0b0d10;
+  --color-text-body: #575757;
+  --color-text-step: #484848;
+  --color-text-icon: #6f7882;
+  --color-text-disabled: #ced6de;
+  --color-text-stepper: #525963;
+  --color-text-danger: #d8392b;
+  --color-border-light: #e6ebf0;
+  --color-border-input: #cccccc;
+  --color-border-active: #0aa288;
+  --color-text-muted: #a8b2bd;
+}
+
+@font-face {
+  font-family: 'Gilroy-Regular';
+  src: local('Outfit'), local('Outfit-Regular');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Gilroy-Medium';
+  src: local('Outfit'), local('Outfit-Medium');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Gilroy-SemiBold';
+  src: local('Outfit'), local('Outfit-SemiBold');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Gilroy-Bold';
+  src: local('Outfit'), local('Outfit-Bold');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Gilroy-RegularItalic';
+  src: local('Outfit'), local('Outfit-Italic');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
+}

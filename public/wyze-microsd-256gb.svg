@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <rect width="200" height="200" rx="12" fill="#F0FDF4"/>
+  <rect x="65" y="30" width="70" height="140" rx="6" stroke="#4E2FD2" stroke-width="2" fill="white"/>
+  <rect x="75" y="110" width="50" height="8" rx="2" fill="#4E2FD2" opacity="0.15"/>
+  <rect x="75" y="125" width="50" height="8" rx="2" fill="#4E2FD2" opacity="0.3"/>
+  <rect x="75" y="140" width="50" height="8" rx="2" fill="#4E2FD2" opacity="0.45"/>
+  <rect x="90" y="40" width="20" height="30" rx="3" fill="#4E2FD2" opacity="0.1"/>
+  <text x="100" y="48" text-anchor="middle" fill="#4E2FD2" font-family="sans-serif" font-size="8" font-weight="700">256GB</text>
+  <text x="100" y="180" text-anchor="middle" fill="#4E2FD2" font-family="sans-serif" font-size="12" font-weight="600">MicroSD Card</text>
+</svg>
